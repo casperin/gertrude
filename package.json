@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "amdetective": "0.0.2",
+    "detective-es6": "^1.1.1",
+    "glob": "^5.0.5",
+    "lodash": "^3.8.0"
+  }
+}
