@@ -1,0 +1,27 @@
+[
+    {
+        "name": "A",
+        "imports": [
+            "B",
+            "C",
+            "D"
+        ]
+    },
+    {
+        "name": "B",
+        "imports": [
+            "C"
+        ]
+    },
+    {
+        "name": "C",
+        "imports": [
+        ]
+    },
+    {
+        "name": "D",
+        "imports": [
+            "B"
+        ]
+    }
+]

@@ -1,4 +1,5 @@
-/* global process, __dirname */
+#!/usr/bin/env node
+
 var es6Detective = require('detective-es6');
 var amdetective = require('amdetective');
 var glob = require('glob');
@@ -21,27 +22,22 @@ glob(root + '**/*.js', function (err, files) {
 
         if (format === 'amd') {
             dependencies = amdetective(mySourceCode);
+            console.log(dependencies);
         }
 
-        dependencies.forEach(function (dependency) {
-            if (dependency === 'require') {
-                return;
-            }
-
-            data.push({
-                source: fileName.replace(root, './').replace('.js', ''),
-                target: dependency.replace('.js', ''),
-                type: 'dependency'
-            });
+        data.push({
+            name: clean(fileName),
+            imports: dependencies.map(clean)
         });
     });
 
-    var template = fs.readFileSync(__dirname + '/template.html', 'utf8');
-
-    var html = _.template(template)({
-        links: JSON.stringify(data, null, 4)
-    });
-
-    process.stdout.write(html);
+    process.stdout.write(JSON.stringify(data, null, 4));
 });
+
+function clean (f) {
+    return f
+        .replace('.js', '')
+        .substr(f.lastIndexOf('/') + 1);
+}
+
 

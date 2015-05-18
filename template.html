@@ -67,7 +67,7 @@
                 .nodes(d3.values(nodes))
                 .links(links)
                 .size([width, height])
-                .linkDistance(60)
+                .linkDistance(100)
                 .charge(-300)
                 .on("tick", tick)
                 .start();
@@ -98,6 +98,8 @@
                 .data(force.links())
               .enter().append("path")
                 .attr("class", function(d) { return "link " + d.type; })
+                .on("mouseover", mouseover)
+                .on("mouseout", mouseout)
                 .attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
 
             var circle = svgInner.append("g").selectAll("circle")
@@ -133,6 +135,18 @@
             function zoomed() {
               svgInner.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             }
+
+function mouseover() {
+  d3.select(this).select("circle").transition()
+      .duration(750)
+      .attr("r", 16);
+}
+
+function mouseout() {
+  d3.select(this).select("circle").transition()
+      .duration(750)
+      .attr("r", 8);
+}
         </script>
     </body>
 </html>
